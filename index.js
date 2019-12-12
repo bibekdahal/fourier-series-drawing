@@ -89,7 +89,7 @@ function addPoint(x, y) {
 
 
 let isPainting = false;
-canvas.onmousedown = (e) => {
+const onmousedown = (e) => {
   if (animating) {
     return;
   }
@@ -98,7 +98,7 @@ canvas.onmousedown = (e) => {
   isPainting = true;
 };
 
-canvas.onmousemove = (e) => {
+const onmousemove = (e) => {
   if (animating) {
     return;
   }
@@ -107,7 +107,7 @@ canvas.onmousemove = (e) => {
   }
 };
 
-canvas.onmouseup = () => {
+const onmouseup = () => {
   if (animating) {
     return;
   }
@@ -115,6 +115,13 @@ canvas.onmouseup = () => {
 };
 
 
+canvas.onmousedown = onmousedown;
+canvas.onmousemove = onmousemove;
+canvas.onmouseup = onmouseup;
+
+canvas.touchstart = onmousedown;
+canvas.touchmove = onmousemove;
+canvas.touchend = onmouseup;
 
 let start = null;
 function nextFrame(timestamp) {
@@ -144,6 +151,7 @@ function startAnimation() {
   document.getElementById('toolbar2').style.display = 'inherit';
   animating = true;
   time = 0;
+  start = null;
 
   const n = line.length;
 
